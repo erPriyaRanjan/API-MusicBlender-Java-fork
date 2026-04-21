@@ -15,16 +15,18 @@ public class ForumController {
     @Autowired
     ForumChatRepository ChatRepository;
 
-    @PostMapping(path="/create/{userId}")
-    @ResponseBody
-    public String createForumIndex(@RequestParam(name="nameForum") String nameForum,
-                                   @RequestParam(name="forumDescription") String forumDescription,
-                                   @PathVariable int userId){
-        ForumIndexModel newForum = new ForumIndexModel(nameForum , userId ,forumDescription , userId);
-        ForumIndexRepo.save(newForum);
-        return "Forum criado";
+ @PostMapping(path="/create/{userId}")
+@ResponseBody
+public String createForumIndex(@RequestParam(name="nameForum") String nameForum,
+    @RequestParam(name="forumDescription") String forumDescription,
+    @PathVariable int userId){
+    if(nameForum == null || nameForum.isEmpty()){
+        return "Forum name cannot be empty";
     }
-
+    ForumIndexModel newForum = new ForumIndexModel(nameForum, userId, forumDescription, userId);
+    ForumIndexRepo.save(newForum);
+    return "Forum criado";
+}
     @PostMapping(path="/message/{forumId}/{userId}")
     public String newMessage(@RequestParam(name="message") String message,
                              @PathVariable int userId,
