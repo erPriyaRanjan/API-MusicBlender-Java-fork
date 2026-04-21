@@ -59,11 +59,11 @@ public class AppController {
         Log.save(logData);
         return Comment;
     }
-
 @GetMapping(path="/getComments/{MusicId}")
 public Iterable<CommentsModel> getCommentsByMusicId(@PathVariable int MusicId){
+    LogModel logData = new LogModel("app/getComments/{MusicId}", "App", Date.getTimeNow());
+    Log.save(logData);
     return CommentsRepo.findByMusicId(MusicId);
 }
-
 
 }
