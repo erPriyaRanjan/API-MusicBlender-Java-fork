@@ -60,11 +60,10 @@ public class AppController {
         return Comment;
     }
 
-    @GetMapping(path="/getComments/{MusicId}")
-    public String getCommentsByMusicId(@PathVariable int MusicId){
-
-        return "a";
-    }
+@GetMapping(path="/getComments/{MusicId}")
+public Iterable<CommentsModel> getCommentsByMusicId(@PathVariable int MusicId){
+    return CommentsRepo.findByMusicId(MusicId);
+}
 
 
 }
